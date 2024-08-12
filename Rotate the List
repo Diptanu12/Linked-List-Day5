@@ -1,0 +1,128 @@
+Rotate the List
+Given the head of a linked list, rotate the list to the right by k places.
+
+Input Format
+First line consists of an integer n, the number of nodes in the linked list.
+
+The next line contains n spaced integers, representing the linked list.
+
+Last line contains k.
+
+Output Format
+Print the rotated linked list.
+
+Example 1
+Input
+
+10
+1 2 3 4 5 6 7 8 9 10
+3
+Output
+
+8 9 10 1 2 3 4 5 6 7
+Example 2
+Input
+
+5
+1 2 3 4 5
+2
+Output
+
+4 5 1 2 3
+Constraints
+0 <= n <= 1000
+
+Topics
+Trees
+Companies
+Adobe
+Goldman Sachs
+
+
+
+import java.io.*;
+import java.util.*;
+ 
+class Node{
+    int data;
+    Node next;
+    Node(int data){
+        this.data = data;
+        next = null;
+    }
+}
+class LinkedList{
+    Node head;
+    void add(int data ){
+        Node new_node = new Node(data);
+        if(head == null){
+            head = new_node;
+            return;
+        }
+        Node current = head;
+        while(current.next !=null){
+            current = current.next;
+        }
+        current.next = new_node;
+    }
+}
+
+class Solution {
+    
+   
+static int length(Node head) {
+        int cnt = 0;
+
+        while(head != null) {
+            cnt++;
+            head = head.next;
+        }
+
+        return cnt;
+    }
+    
+    static void rotateRight(Node head, int n) {
+
+        int len = length(head);
+        n = n % len;
+
+        int skip = len - n;
+
+        Node prev = null, h2 = head;
+
+        while(skip > 0) {
+            prev = h2;
+            h2 = h2.next;
+            skip--;
+        }
+
+        prev.next = null;
+        Node t2 = h2;
+        while(t2.next != null) {
+            t2 = t2.next;
+        }
+
+        t2.next = head;
+
+        while(h2 != null) {
+            System.out.print(h2.data + " ");
+            h2 = h2.next;
+        }
+    }
+
+
+}
+public class Main {
+    
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        LinkedList l1= new LinkedList();
+        for(int i=0;i<n;i++){
+            l1.add(sc.nextInt());
+        }
+        Solution Ob = new Solution();
+        int k = sc.nextInt();
+        Ob.rotateRight(l1.head, k);
+    }
+}
